@@ -43,19 +43,39 @@ class Column:
         return elevator  
 
     def findElevator(self, requestedFloor, requestedDirection):
-        bestElevator =
+        bestElevator = None
         bestScore = 5
         referenceGap = 10000000
         bestElevatorInformations = bestScore, referenceGap, bestElevator
 
+        for elevator in self.elevatorList.forEach:
+            if requestedFloor == elevator.currentFloor and elevator.status == "stopped" and requestedDirection == elevator.direction:
+                bestElevatorInformations = self.checkIfElevatorIsBetter(1, elevator, bestElevatorInformations, requestedFloor)
+                return bestElevatorInformations
+            elif requestedFloor > elevator.currentFloor and elevator.status == "up" and requestedDirection == elevator.direction:
+                bestElevatorInformations = self.checkIfElevatorIsBetter(2, elevator, bestElevatorInformations, requestedFloor)
+                return bestElevatorInformations
+            elif requestedFloor < elevator.currentFloor and elevator.status == "down" and requestedDirection == elevator.direction:
+                bestElevatorInformations = self.checkIfElevatorIsBetter(2, elevator, bestElevatorInformations, requestedFloor)
+                return bestElevatorInformations
+            elif elevator.status == "idle":
+                bestElevatorInformations = self.checkIfElevatorIsBetter(3, elevator, bestElevatorInformations, requestedFloor)
+                return bestElevatorInformations
+            else : bestElevatorInformations = self.checkIfElevatorIsBetter(4, elevator, bestElevatorInformations, requestedFloor)
 
+            return bestElevatorInformations.bestElevator
 
-
-
-
-
-
-
+    def checkIfElevatorIsBetter(self, scoreToCheck, newElevator, bestElevatorInformations, floor):
+        if scoreToCheck < bestElevatorInformations.bestElevator:
+            bestElevatorInformations.bestScore = scoreToCheck
+            bestElevatorInformations.bestElevator = newElevator
+            bestElevatorInformations.referenceGap = abs(newElevator.currentFloor - floor)
+        elif bestElevatorInformations.bestScore == scoreToCheck:
+            gap = abs(newElevator.currentFloor - floor)
+            if bestElevatorInformations.referenceGap > gap:
+                bestElevatorInformations.bestElevator = newElevator
+                bestElevatorInformations.referenceGap = gap
+        return bestElevatorInformations
 
 
 class Elevator:
