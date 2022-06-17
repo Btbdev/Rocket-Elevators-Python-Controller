@@ -17,7 +17,7 @@ where are the elevators actually and what are they doing (their status, directio
 The code will evaluate these options, giving them some value to set the best elevator available to a specific situation.
 The elevator will then move, open its door, take the user if it is not in an overweight situation or obtructed, close its door and bring the user to the floor he wanted to go.
 
-As an example, we see David, standing in front of an elevator column in a given building. OPn this column, 2 elevators are available. David is standing on the 2nd floor and he wants to go the the 6th floor. He presses the call button to go up. 
+As an example, we see David, standing in front of an elevator column in a given building. On this column, 2 elevators are available. David is standing on the 2nd floor and he wants to go the the 6th floor. He presses the call button to go up. 
 
 The two elevators are not at the same place. The left one is standing still at the first floor and the second one is moving from the 10th floor. It is on a mission of its own (it has been called or somebody is in it and is going somewhere). Allready, the code was given enough informations to evaluate the best choice for David. The first elevator, standing idle just one floor from David's request, seems to be better placed than the second elevator, away 9 floors from David. The program will initiate the first elevator to move, since the values derivated from the best elevator evaluation mechanism in place, has choosen this one to take David to its desired floor. 
 
