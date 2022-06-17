@@ -53,20 +53,20 @@ class Column:
         for elevator in self.elevatorList:
             if requestedFloor == elevator.currentFloor and elevator.status == "stopped" and requestedDirection == elevator.direction:
                 bestElevatorInformations = self.checkIfElevatorIsBetter(1, elevator, bestElevatorInformations, requestedFloor)
-                return bestElevatorInformations
+                
             elif requestedFloor > elevator.currentFloor and elevator.status == "up" and requestedDirection == elevator.direction:
                 bestElevatorInformations = self.checkIfElevatorIsBetter(2, elevator, bestElevatorInformations, requestedFloor)
-                return bestElevatorInformations
+                
             elif requestedFloor < elevator.currentFloor and elevator.status == "down" and requestedDirection == elevator.direction:
                 bestElevatorInformations = self.checkIfElevatorIsBetter(2, elevator, bestElevatorInformations, requestedFloor)
-                return bestElevatorInformations
+                
             elif elevator.status == "idle":
                 bestElevatorInformations = self.checkIfElevatorIsBetter(3, elevator, bestElevatorInformations, requestedFloor)
-                return bestElevatorInformations
+                
             else : bestElevatorInformations = self.checkIfElevatorIsBetter(4, elevator, bestElevatorInformations, requestedFloor)
-            return bestElevatorInformations
+            
 
-        elevator = bestElevatorInformations["bestElevator"]
+        elevator = bestElevatorInformations.get("bestElevator")
         return elevator
 
     def checkIfElevatorIsBetter(self, scoreToCheck, newElevator, bestElevatorInformations, floor):
@@ -124,7 +124,7 @@ class Elevator:
                         self.currentFloor -=1
                         self.screenDisplay = self.currentFloor
             self.status = "stopped"
-            self.floorRequestList.shift()
+            self.floorRequestList.pop()
         self.status = "idle"
 
     def sortFloorList(self):
